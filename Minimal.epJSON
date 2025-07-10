@@ -1,0 +1,784 @@
+{
+    "Building": {
+        "2room": {
+            "loads_convergence_tolerance_value": 0.04,
+            "maximum_number_of_warmup_days": 25,
+            "minimum_number_of_warmup_days": 6,
+            "north_axis": 0,
+            "solar_distribution": "FullExterior",
+            "temperature_convergence_tolerance_value": 0.4,
+            "terrain": "Suburbs"
+        }
+    },
+    "BuildingSurface:Detailed": {
+        "BR_Floor": {
+            "construction_name": "Slab",
+            "number_of_vertices": 4,
+            "outside_boundary_condition": "Ground",
+            "sun_exposure": "NoSun",
+            "surface_type": "Floor",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                }
+            ],
+            "wind_exposure": "NoWind",
+            "zone_name": "Bedroom"
+        },
+        "BR_Roof": {
+            "construction_name": "Roof",
+            "outside_boundary_condition": "Outdoors",
+            "sun_exposure": "SunExposed",
+            "surface_type": "Roof",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "WindExposed",
+            "zone_name": "Bedroom"
+        },
+        "BR_Wall_E": {
+            "construction_name": "ExtWall",
+            "number_of_vertices": 4,
+            "outside_boundary_condition": "Outdoors",
+            "sun_exposure": "SunExposed",
+            "surface_type": "Wall",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "WindExposed",
+            "zone_name": "Bedroom"
+        },
+        "BR_Wall_N": {
+            "construction_name": "ExtWall",
+            "outside_boundary_condition": "Outdoors",
+            "sun_exposure": "SunExposed",
+            "surface_type": "Wall",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "WindExposed",
+            "zone_name": "Bedroom"
+        },
+        "BR_Wall_S": {
+            "construction_name": "ExtWall",
+            "outside_boundary_condition": "Outdoors",
+            "sun_exposure": "SunExposed",
+            "surface_type": "Wall",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 4,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "WindExposed",
+            "zone_name": "Bedroom"
+        },
+        "BR_Wall_W": {
+            "construction_name": "IntWall",
+            "number_of_vertices": 4,
+            "outside_boundary_condition": "Surface",
+            "outside_boundary_condition_object": "LR_Wall_E",
+            "sun_exposure": "NoSun",
+            "surface_type": "Wall",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "NoWind",
+            "zone_name": "Bedroom"
+        },
+        "LR_Floor": {
+            "construction_name": "Slab",
+            "number_of_vertices": 4,
+            "outside_boundary_condition": "Ground",
+            "sun_exposure": "NoSun",
+            "surface_type": "Floor",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                }
+            ],
+            "wind_exposure": "NoWind",
+            "zone_name": "LivingRoom"
+        },
+        "LR_Roof": {
+            "construction_name": "Roof",
+            "outside_boundary_condition": "Outdoors",
+            "sun_exposure": "SunExposed",
+            "surface_type": "Roof",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "WindExposed",
+            "zone_name": "LivingRoom"
+        },
+        "LR_Wall_E": {
+            "construction_name": "IntWall",
+            "number_of_vertices": 4,
+            "outside_boundary_condition": "Surface",
+            "outside_boundary_condition_object": "BR_Wall_W",
+            "sun_exposure": "NoSun",
+            "surface_type": "Wall",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "NoWind",
+            "zone_name": "LivingRoom"
+        },
+        "LR_Wall_N": {
+            "construction_name": "ExtWall",
+            "outside_boundary_condition": "Outdoors",
+            "sun_exposure": "SunExposed",
+            "surface_type": "Wall",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "WindExposed",
+            "zone_name": "LivingRoom"
+        },
+        "LR_Wall_S": {
+            "construction_name": "ExtWall",
+            "outside_boundary_condition": "Outdoors",
+            "sun_exposure": "SunExposed",
+            "surface_type": "Wall",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 2,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "WindExposed",
+            "zone_name": "LivingRoom"
+        },
+        "LR_Wall_W": {
+            "construction_name": "ExtWall",
+            "outside_boundary_condition": "Outdoors",
+            "sun_exposure": "SunExposed",
+            "surface_type": "Wall",
+            "vertices": [
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 3
+                },
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 0,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 0
+                },
+                {
+                    "vertex_x_coordinate": 0,
+                    "vertex_y_coordinate": 4,
+                    "vertex_z_coordinate": 3
+                }
+            ],
+            "wind_exposure": "WindExposed",
+            "zone_name": "LivingRoom"
+        }
+    },
+    "Construction": {
+        "ExtDoor": {
+            "outside_layer": "ExtDoorInsulated"
+        },
+        "ExtWall": {
+            "layer_2": "Brick",
+            "layer_3": "EPS",
+            "outside_layer": "Plaster"
+        },
+        "IntDoor": {
+            "outside_layer": "IntDoorWood"
+        },
+        "IntWall": {
+            "layer_2": "Brick",
+            "layer_3": "Plaster",
+            "outside_layer": "Plaster"
+        },
+        "Roof": {
+            "layer_2": "MineralWool",
+            "layer_3": "Concrete",
+            "outside_layer": "Plaster"
+        },
+        "Slab": {
+            "layer_2": "FloorIns",
+            "outside_layer": "Concrete"
+        },
+        "Win_DoubleLowE": {
+            "outside_layer": "DE_DoubleLowE"
+        }
+    },
+    "FenestrationSurface:Detailed": {
+        "BR_Window_E": {
+            "building_surface_name": "BR_Wall_E",
+            "construction_name": "Win_DoubleLowE",
+            "multiplier": 1,
+            "number_of_vertices": 4,
+            "surface_type": "Window",
+            "vertex_1_x_coordinate": 4.0,
+            "vertex_1_y_coordinate": 1.5,
+            "vertex_1_z_coordinate": 2.1,
+            "vertex_2_x_coordinate": 4.0,
+            "vertex_2_y_coordinate": 1.5,
+            "vertex_2_z_coordinate": 0.9,
+            "vertex_3_x_coordinate": 4.0,
+            "vertex_3_y_coordinate": 2.5,
+            "vertex_3_z_coordinate": 0.9,
+            "vertex_4_x_coordinate": 4.0,
+            "vertex_4_y_coordinate": 2.5,
+            "vertex_4_z_coordinate": 2.1,
+            "view_factor_to_ground": 1.0
+        },
+        "Door_BR_to_LR": {
+            "building_surface_name": "BR_Wall_W",
+            "construction_name": "IntDoor",
+            "multiplier": 1,
+            "number_of_vertices": 4,
+            "outside_boundary_condition_object": "Door_LR_to_BR",
+            "surface_type": "Door",
+            "vertex_1_x_coordinate": 2.0,
+            "vertex_1_y_coordinate": 2.45,
+            "vertex_1_z_coordinate": 2.1,
+            "vertex_2_x_coordinate": 2.0,
+            "vertex_2_y_coordinate": 2.45,
+            "vertex_2_z_coordinate": 0.0,
+            "vertex_3_x_coordinate": 2.0,
+            "vertex_3_y_coordinate": 1.55,
+            "vertex_3_z_coordinate": 0.0,
+            "vertex_4_x_coordinate": 2.0,
+            "vertex_4_y_coordinate": 1.55,
+            "vertex_4_z_coordinate": 2.1,
+            "view_factor_to_ground": 1.0
+        },
+        "Door_LR_to_BR": {
+            "building_surface_name": "LR_Wall_E",
+            "construction_name": "IntDoor",
+            "multiplier": 1,
+            "number_of_vertices": 4,
+            "outside_boundary_condition_object": "Door_BR_to_LR",
+            "surface_type": "Door",
+            "vertex_1_x_coordinate": 2.0,
+            "vertex_1_y_coordinate": 1.55,
+            "vertex_1_z_coordinate": 2.1,
+            "vertex_2_x_coordinate": 2.0,
+            "vertex_2_y_coordinate": 1.55,
+            "vertex_2_z_coordinate": 0.0,
+            "vertex_3_x_coordinate": 2.0,
+            "vertex_3_y_coordinate": 2.45,
+            "vertex_3_z_coordinate": 0.0,
+            "vertex_4_x_coordinate": 2.0,
+            "vertex_4_y_coordinate": 2.45,
+            "vertex_4_z_coordinate": 2.1,
+            "view_factor_to_ground": 1.0
+        },
+        "FrontDoor": {
+            "building_surface_name": "LR_Wall_S",
+            "construction_name": "ExtDoor",
+            "multiplier": 1,
+            "number_of_vertices": 4,
+            "surface_type": "Door",
+            "vertex_1_x_coordinate": 1.45,
+            "vertex_1_y_coordinate": 0.0,
+            "vertex_1_z_coordinate": 2.1,
+            "vertex_2_x_coordinate": 1.45,
+            "vertex_2_y_coordinate": 0.0,
+            "vertex_2_z_coordinate": 0.0,
+            "vertex_3_x_coordinate": 0.55,
+            "vertex_3_y_coordinate": 0.0,
+            "vertex_3_z_coordinate": 0.0,
+            "vertex_4_x_coordinate": 0.55,
+            "vertex_4_y_coordinate": 0.0,
+            "vertex_4_z_coordinate": 2.1,
+            "view_factor_to_ground": 1.0
+        },
+        "LR_Window_N": {
+            "building_surface_name": "LR_Wall_N",
+            "construction_name": "Win_DoubleLowE",
+            "multiplier": 1,
+            "number_of_vertices": 4,
+            "surface_type": "Window",
+            "vertex_1_x_coordinate": 0.5,
+            "vertex_1_y_coordinate": 4.0,
+            "vertex_1_z_coordinate": 2.1,
+            "vertex_2_x_coordinate": 0.5,
+            "vertex_2_y_coordinate": 4.0,
+            "vertex_2_z_coordinate": 0.9,
+            "vertex_3_x_coordinate": 1.5,
+            "vertex_3_y_coordinate": 4.0,
+            "vertex_3_z_coordinate": 0.9,
+            "vertex_4_x_coordinate": 1.5,
+            "vertex_4_y_coordinate": 4.0,
+            "vertex_4_z_coordinate": 2.1,
+            "view_factor_to_ground": 1.0
+        }
+    },
+    "GlobalGeometryRules": {
+        "GlobalGeometryRules 1": {
+            "coordinate_system": "Relative",
+            "starting_vertex_position": "UpperLeftCorner",
+            "vertex_entry_direction": "Counterclockwise"
+        }
+    },
+    "HVACTemplate:Plant:Boiler": {
+        "MainBoilerPlant": {
+            "boiler_type": "CondensingHotWaterBoiler",
+            "capacity": 1800,
+            "efficiency": 0.9,
+            "fuel_type": "NaturalGas"
+        }
+    },
+    "HVACTemplate:Plant:HotWaterLoop": {
+        "Pipes": {
+            "demand_side_bypass_pipe": "Yes",
+            "fluid_type": "Water",
+            "hot_water_design_setpoint": 82,
+            "hot_water_plant_operation_scheme_type": "Default",
+            "hot_water_pump_configuration": "ConstantFlow",
+            "hot_water_pump_rated_head": 179352,
+            "hot_water_pump_type": "SinglePump",
+            "hot_water_reset_outdoor_dry_bulb_high": 10,
+            "hot_water_reset_outdoor_dry_bulb_low": -6.7,
+            "hot_water_setpoint_at_outdoor_dry_bulb_high": 65.6,
+            "hot_water_setpoint_at_outdoor_dry_bulb_low": 82.2,
+            "hot_water_setpoint_reset_type": "None",
+            "load_distribution_scheme": "SequentialLoad",
+            "loop_design_delta_temperature": 11,
+            "pump_control_type": "Intermittent",
+            "supply_side_bypass_pipe": "Yes"
+        }
+    },
+    "HVACTemplate:Thermostat": {
+        "ThermostatBedroom": {
+            "constant_cooling_setpoint": 27,
+            "constant_heating_setpoint": 25
+        },
+        "ThermostatLivingRoom": {
+            "constant_cooling_setpoint": 24,
+            "constant_heating_setpoint": 21
+        }
+    },
+    "HVACTemplate:Zone:BaseboardHeat": {
+        "HVACTemplate:Zone:BaseboardHeat 1": {
+            "baseboard_heating_capacity": 600,
+            "baseboard_heating_type": "HotWater",
+            "template_thermostat_name": "ThermostatLivingRoom",
+            "zone_name": "LivingRoom"
+        },
+        "HVACTemplate:Zone:BaseboardHeat 2": {
+            "baseboard_heating_capacity": 600,
+            "baseboard_heating_type": "HotWater",
+            "template_thermostat_name": "ThermostatBedroom",
+            "zone_name": "Bedroom"
+        }
+    },
+    "Material": {
+        "Brick": {
+            "conductivity": 0.72,
+            "density": 1800,
+            "roughness": "Rough",
+            "specific_heat": 840,
+            "thickness": 0.2
+        },
+        "Concrete": {
+            "conductivity": 1.4,
+            "density": 2300,
+            "roughness": "Rough",
+            "specific_heat": 920,
+            "thickness": 0.2
+        },
+        "EPS": {
+            "conductivity": 0.04,
+            "density": 30,
+            "roughness": "Rough",
+            "specific_heat": 1400,
+            "thickness": 0.1
+        },
+        "ExtDoorInsulated": {
+            "conductivity": 0.055,
+            "density": 520,
+            "roughness": "MediumRough",
+            "specific_heat": 1210,
+            "thickness": 0.05
+        },
+        "FloorIns": {
+            "conductivity": 0.035,
+            "density": 35,
+            "roughness": "Rough",
+            "specific_heat": 1030,
+            "thickness": 0.1
+        },
+        "IntDoorWood": {
+            "conductivity": 0.15,
+            "density": 550,
+            "roughness": "MediumSmooth",
+            "specific_heat": 1210,
+            "thickness": 0.04
+        },
+        "MineralWool": {
+            "conductivity": 0.04,
+            "density": 70,
+            "roughness": "Rough",
+            "specific_heat": 1030,
+            "thickness": 0.16
+        },
+        "Plaster": {
+            "conductivity": 0.57,
+            "density": 1200,
+            "roughness": "Rough",
+            "specific_heat": 840,
+            "thickness": 0.013
+        }
+    },
+    "Output:Table:SummaryReports": {
+        "Output:Table:SummaryReports 1": {
+            "reports": [
+                {
+                    "report_name": "AllSummary"
+                }
+            ]
+        }
+    },
+    "Output:Variable": {
+        "Output:Variable 1": {
+            "key_value": "*",
+            "reporting_frequency": "Timestep",
+            "variable_name": "Site Outdoor Air Drybulb Temperature"
+        },
+        "Output:Variable 2": {
+            "key_value": "*",
+            "reporting_frequency": "Timestep",
+            "variable_name": "Zone Mean Air Temperature"
+        },
+        "Output:Variable 3": {
+            "key_value": "*",
+            "reporting_frequency": "Timestep",
+            "variable_name": "Baseboard Hot Water Mass Flow Rate"
+        },
+        "Output:Variable 4": {
+            "key_value": "*",
+            "reporting_frequency": "Timestep",
+            "variable_name": "Boiler Heating Rate"
+        }
+    },
+    "Output:VariableDictionary": {
+        "Output:VariableDictionary 1": {
+            "key_field": "IDF"
+        }
+    },
+    "RunPeriod": {
+        "PeriodSimu": {
+            "apply_weekend_holiday_rule": "No",
+            "begin_day_of_month": 1,
+            "begin_month": 1,
+            "end_day_of_month": 31,
+            "end_month": 12,
+            "first_hour_interpolation_starting_values": "Hour24",
+            "treat_weather_as_actual": "No",
+            "use_weather_file_daylight_saving_period": "Yes",
+            "use_weather_file_holidays_and_special_days": "Yes",
+            "use_weather_file_rain_indicators": "Yes",
+            "use_weather_file_snow_indicators": "Yes"
+        }
+    },
+    "SimulationControl": {
+        "SimulationControl 1": {
+            "do_hvac_sizing_simulation_for_sizing_periods": "No",
+            "do_plant_sizing_calculation": "Yes",
+            "do_system_sizing_calculation": "Yes",
+            "do_zone_sizing_calculation": "No",
+            "maximum_number_of_hvac_sizing_simulation_passes": 1,
+            "run_simulation_for_sizing_periods": "No",
+            "run_simulation_for_weather_file_run_periods": "Yes"
+        }
+    },
+    "Site:Location": {
+        "Luedenscheid_NW_DEU Design_Conditions": {
+            "elevation": 389.4,
+            "latitude": 51.25,
+            "longitude": 7.64,
+            "time_zone": 1.0
+        }
+    },
+    "SizingPeriod:WeatherFileConditionType": {
+        "Autumn Typical": {
+            "day_of_week_for_start_day": "Monday",
+            "period_selection": "AutumnTypical",
+            "use_weather_file_daylight_saving_period": "Yes",
+            "use_weather_file_rain_and_snow_indicators": "Yes"
+        },
+        "Spring Typical": {
+            "day_of_week_for_start_day": "Monday",
+            "period_selection": "SpringTypical",
+            "use_weather_file_daylight_saving_period": "Yes",
+            "use_weather_file_rain_and_snow_indicators": "Yes"
+        },
+        "Summer Extreme": {
+            "day_of_week_for_start_day": "SummerDesignDay",
+            "period_selection": "SummerExtreme",
+            "use_weather_file_daylight_saving_period": "Yes",
+            "use_weather_file_rain_and_snow_indicators": "Yes"
+        },
+        "Summer Typical": {
+            "day_of_week_for_start_day": "Monday",
+            "period_selection": "SummerTypical",
+            "use_weather_file_daylight_saving_period": "Yes",
+            "use_weather_file_rain_and_snow_indicators": "Yes"
+        },
+        "Winter Extreme": {
+            "day_of_week_for_start_day": "WinterDesignDay",
+            "period_selection": "WinterExtreme",
+            "use_weather_file_daylight_saving_period": "Yes",
+            "use_weather_file_rain_and_snow_indicators": "Yes"
+        },
+        "Winter Typical": {
+            "day_of_week_for_start_day": "Monday",
+            "period_selection": "WinterTypical",
+            "use_weather_file_daylight_saving_period": "Yes",
+            "use_weather_file_rain_and_snow_indicators": "Yes"
+        }
+    },
+    "SizingPeriod:WeatherFileDays": {
+        "DEU_NW_Luedenscheid.104180_TMYx.2007-2021.epw": {
+            "begin_day_of_month": 31,
+            "begin_month": 1,
+            "day_of_week_for_start_day": "Monday",
+            "end_day_of_month": 31,
+            "end_month": 12,
+            "use_weather_file_daylight_saving_period": "Yes",
+            "use_weather_file_rain_and_snow_indicators": "Yes"
+        }
+    },
+    "Timestep": {
+        "Timestep 1": {
+            "number_of_timesteps_per_hour": 4
+        }
+    },
+    "Version": {
+        "Version 1": {
+            "version_identifier": "25.1"
+        }
+    },
+    "WindowMaterial:SimpleGlazingSystem": {
+        "DE_DoubleLowE": {
+            "solar_heat_gain_coefficient": 0.6,
+            "u_factor": 1.1
+        }
+    },
+    "Zone": {
+        "Bedroom": {
+            "ceiling_height": 3,
+            "direction_of_relative_north": 0,
+            "x_origin": 2,
+            "y_origin": 0,
+            "z_origin": 0
+        },
+        "LivingRoom": {
+            "ceiling_height": 3,
+            "direction_of_relative_north": 0,
+            "x_origin": 0,
+            "y_origin": 0,
+            "z_origin": 0
+        }
+    }
+}
