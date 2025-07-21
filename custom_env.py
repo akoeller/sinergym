@@ -32,11 +32,12 @@ for i in range(1):
 
         # Random action selection
         a = env.action_space.sample()
-
-        print("Action: ", a)
+        a = np.array([20.0, 20.0])
 
         # Perform action and receive env information
         obs, reward, terminated, truncated, info = env.step(a)
+
+        print(f"Action: {a}, Reward: {reward}, Obs: {obs}")
 
         rewards.append(reward)
 

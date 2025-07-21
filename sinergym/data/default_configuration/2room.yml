@@ -78,9 +78,9 @@ context: {}
 # ---------------------------------------------------------------------------- #
 #                                 ACTION SPACE                                 #
 # ---------------------------------------------------------------------------- #
-#   low  = [ 15 °C heat setp, 22 °C cool setp ]
-#   high = [ 23 °C heat setp, 30 °C cool setp ]
-action_space: gym.spaces.Box( low=np.array([15.0, 22.0], dtype=np.float32), high=np.array([23.0, 30.0], dtype=np.float32),shape=(2,),dtype=np.float32)
+#   low  = [ 15 °C heat setp LR, 15 °C heat setp BR ]
+#   high = [ 23 °C heat setp LR, 23 °C heat setp BR ]
+action_space: gym.spaces.Box( low=np.array([15.0, 15.0], dtype=np.float32), high=np.array([23.0, 23.0], dtype=np.float32),shape=(2,),dtype=np.float32)
 
 # ---------------------------------------------------------------------------- #
 #                                REWARD FUNCTION                               #
