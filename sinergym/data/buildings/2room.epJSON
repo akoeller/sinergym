@@ -1,4 +1,152 @@
 {
+    "Boiler:HotWater": {
+        "MainBoilerPlant": {
+            "boiler_flow_mode": "ConstantFlow",
+            "boiler_water_inlet_node_name": "MainBoilerPlant HW Inlet",
+            "boiler_water_outlet_node_name": "MainBoilerPlant HW Outlet",
+            "design_water_flow_rate": "Autosize",
+            "efficiency_curve_temperature_evaluation_variable": "EnteringBoiler",
+            "fuel_type": "NaturalGas",
+            "maximum_part_load_ratio": 1.1,
+            "minimum_part_load_ratio": 0.0,
+            "nominal_capacity": 1800,
+            "nominal_thermal_efficiency": 0.9,
+            "normalized_boiler_efficiency_curve_name": "MainBoilerPlant Condensing Boiler Efficiency Curve",
+            "on_cycle_parasitic_electric_load": 0,
+            "optimum_part_load_ratio": 1.0,
+            "sizing_factor": 1.0,
+            "water_outlet_upper_temperature_limit": 100.0
+        }
+    },
+    "Branch": {
+        "Bedroom Baseboard Heat HW Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "Bedroom Baseboard HW Inlet",
+                    "component_name": "Bedroom Baseboard Heat",
+                    "component_object_type": "ZoneHVAC:Baseboard:RadiantConvective:Water",
+                    "component_outlet_node_name": "Bedroom Baseboard HW Outlet"
+                }
+            ]
+        },
+        "LivingRoom Baseboard Heat HW Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "LivingRoom Baseboard HW Inlet",
+                    "component_name": "LivingRoom Baseboard Heat",
+                    "component_object_type": "ZoneHVAC:Baseboard:RadiantConvective:Water",
+                    "component_outlet_node_name": "LivingRoom Baseboard HW Outlet"
+                }
+            ]
+        },
+        "MainBoilerPlant HW Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "MainBoilerPlant HW Inlet",
+                    "component_name": "MainBoilerPlant",
+                    "component_object_type": "Boiler:HotWater",
+                    "component_outlet_node_name": "MainBoilerPlant HW Outlet"
+                }
+            ]
+        },
+        "Pipes HW Demand Bypass Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "Pipes HW Demand Bypass Inlet",
+                    "component_name": "Pipes HW Demand Side Bypass Pipe",
+                    "component_object_type": "Pipe:Adiabatic",
+                    "component_outlet_node_name": "Pipes HW Demand Bypass Outlet"
+                }
+            ]
+        },
+        "Pipes HW Demand Inlet Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "Pipes HW Demand Inlet",
+                    "component_name": "Pipes HW Demand Inlet Pipe",
+                    "component_object_type": "Pipe:Adiabatic",
+                    "component_outlet_node_name": "Pipes HW Demand Inlet Pipe Outlet"
+                }
+            ]
+        },
+        "Pipes HW Demand Outlet Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "Pipes HW Demand Outlet Pipe Inlet",
+                    "component_name": "Pipes HW Demand Outlet Pipe",
+                    "component_object_type": "Pipe:Adiabatic",
+                    "component_outlet_node_name": "Pipes HW Demand Outlet"
+                }
+            ]
+        },
+        "Pipes HW Supply Bypass Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "Pipes HW Supply Bypass Inlet",
+                    "component_name": "Pipes HW Supply Side Bypass Pipe",
+                    "component_object_type": "Pipe:Adiabatic",
+                    "component_outlet_node_name": "Pipes HW Supply Bypass Outlet"
+                }
+            ]
+        },
+        "Pipes HW Supply Inlet Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "Pipes HW Supply Inlet",
+                    "component_name": "Pipes HW Supply Pump",
+                    "component_object_type": "Pump:ConstantSpeed",
+                    "component_outlet_node_name": "Pipes HW Pump Outlet"
+                }
+            ]
+        },
+        "Pipes HW Supply Outlet Branch": {
+            "components": [
+                {
+                    "component_inlet_node_name": "Pipes HW Supply Outlet Pipe Inlet",
+                    "component_name": "Pipes HW Supply Outlet Pipe",
+                    "component_object_type": "Pipe:Adiabatic",
+                    "component_outlet_node_name": "Pipes HW Supply Outlet"
+                }
+            ]
+        }
+    },
+    "BranchList": {
+        "Pipes HW Demand Side Branches": {
+            "branches": [
+                {
+                    "branch_name": "Pipes HW Demand Inlet Branch"
+                },
+                {
+                    "branch_name": "LivingRoom Baseboard Heat HW Branch"
+                },
+                {
+                    "branch_name": "Bedroom Baseboard Heat HW Branch"
+                },
+                {
+                    "branch_name": "Pipes HW Demand Bypass Branch"
+                },
+                {
+                    "branch_name": "Pipes HW Demand Outlet Branch"
+                }
+            ]
+        },
+        "Pipes HW Supply Side Branches": {
+            "branches": [
+                {
+                    "branch_name": "Pipes HW Supply Inlet Branch"
+                },
+                {
+                    "branch_name": "MainBoilerPlant HW Branch"
+                },
+                {
+                    "branch_name": "Pipes HW Supply Bypass Branch"
+                },
+                {
+                    "branch_name": "Pipes HW Supply Outlet Branch"
+                }
+            ]
+        }
+    },
     "Building": {
         "2room": {
             "loads_convergence_tolerance_value": 0.04,
@@ -379,6 +527,74 @@
             "zone_name": "LivingRoom"
         }
     },
+    "Connector:Mixer": {
+        "Pipes HW Demand Mixer": {
+            "branches": [
+                {
+                    "inlet_branch_name": "Pipes HW Demand Bypass Branch"
+                },
+                {
+                    "inlet_branch_name": "LivingRoom Baseboard Heat HW Branch"
+                },
+                {
+                    "inlet_branch_name": "Bedroom Baseboard Heat HW Branch"
+                }
+            ],
+            "outlet_branch_name": "Pipes HW Demand Outlet Branch"
+        },
+        "Pipes HW Supply Mixer": {
+            "branches": [
+                {
+                    "inlet_branch_name": "MainBoilerPlant HW Branch"
+                },
+                {
+                    "inlet_branch_name": "Pipes HW Supply Bypass Branch"
+                }
+            ],
+            "outlet_branch_name": "Pipes HW Supply Outlet Branch"
+        }
+    },
+    "Connector:Splitter": {
+        "Pipes HW Demand Splitter": {
+            "branches": [
+                {
+                    "outlet_branch_name": "Pipes HW Demand Bypass Branch"
+                },
+                {
+                    "outlet_branch_name": "LivingRoom Baseboard Heat HW Branch"
+                },
+                {
+                    "outlet_branch_name": "Bedroom Baseboard Heat HW Branch"
+                }
+            ],
+            "inlet_branch_name": "Pipes HW Demand Inlet Branch"
+        },
+        "Pipes HW Supply Splitter": {
+            "branches": [
+                {
+                    "outlet_branch_name": "MainBoilerPlant HW Branch"
+                },
+                {
+                    "outlet_branch_name": "Pipes HW Supply Bypass Branch"
+                }
+            ],
+            "inlet_branch_name": "Pipes HW Supply Inlet Branch"
+        }
+    },
+    "ConnectorList": {
+        "Pipes HW Demand Side Connectors": {
+            "connector_1_name": "Pipes HW Demand Splitter",
+            "connector_1_object_type": "Connector:Splitter",
+            "connector_2_name": "Pipes HW Demand Mixer",
+            "connector_2_object_type": "Connector:Mixer"
+        },
+        "Pipes HW Supply Side Connectors": {
+            "connector_1_name": "Pipes HW Supply Splitter",
+            "connector_1_object_type": "Connector:Splitter",
+            "connector_2_name": "Pipes HW Supply Mixer",
+            "connector_2_object_type": "Connector:Mixer"
+        }
+    },
     "Construction": {
         "ExtDoor": {
             "outside_layer": "ExtDoorInsulated"
@@ -407,6 +623,20 @@
         },
         "Win_DoubleLowE": {
             "outside_layer": "DE_DoubleLowE"
+        }
+    },
+    "Curve:Biquadratic": {
+        "MainBoilerPlant Condensing Boiler Efficiency Curve": {
+            "coefficient1_constant": 1.124970374,
+            "coefficient2_x": 0.014963852,
+            "coefficient3_x_2": -0.02599835,
+            "coefficient4_y": 0.0,
+            "coefficient5_y_2": -1.40464e-06,
+            "coefficient6_x_y": -0.00153624,
+            "maximum_value_of_x": 1.0,
+            "maximum_value_of_y": 85.0,
+            "minimum_value_of_x": 0.1,
+            "minimum_value_of_y": 30.0
         }
     },
     "FenestrationSurface:Detailed": {
@@ -520,58 +750,6 @@
             "vertex_entry_direction": "Counterclockwise"
         }
     },
-    "HVACTemplate:Plant:Boiler": {
-        "MainBoilerPlant": {
-            "boiler_type": "CondensingHotWaterBoiler",
-            "capacity": 1800,
-            "efficiency": 0.9,
-            "fuel_type": "NaturalGas"
-        }
-    },
-    "HVACTemplate:Plant:HotWaterLoop": {
-        "Pipes": {
-            "demand_side_bypass_pipe": "Yes",
-            "fluid_type": "Water",
-            "hot_water_design_setpoint": 82,
-            "hot_water_plant_operation_scheme_type": "Default",
-            "hot_water_pump_configuration": "ConstantFlow",
-            "hot_water_pump_rated_head": 179352,
-            "hot_water_pump_type": "SinglePump",
-            "hot_water_reset_outdoor_dry_bulb_high": 10,
-            "hot_water_reset_outdoor_dry_bulb_low": -6.7,
-            "hot_water_setpoint_at_outdoor_dry_bulb_high": 65.6,
-            "hot_water_setpoint_at_outdoor_dry_bulb_low": 82.2,
-            "hot_water_setpoint_reset_type": "None",
-            "load_distribution_scheme": "SequentialLoad",
-            "loop_design_delta_temperature": 11,
-            "pump_control_type": "Intermittent",
-            "supply_side_bypass_pipe": "Yes"
-        }
-    },
-    "HVACTemplate:Thermostat": {
-        "ThermostatBedroom": {
-            "constant_cooling_setpoint": 27,
-            "constant_heating_setpoint": 25
-        },
-        "ThermostatLivingRoom": {
-            "constant_cooling_setpoint": 24,
-            "constant_heating_setpoint": 21
-        }
-    },
-    "HVACTemplate:Zone:BaseboardHeat": {
-        "HVACTemplate:Zone:BaseboardHeat 1": {
-            "baseboard_heating_capacity": 600,
-            "baseboard_heating_type": "HotWater",
-            "template_thermostat_name": "ThermostatLivingRoom",
-            "zone_name": "LivingRoom"
-        },
-        "HVACTemplate:Zone:BaseboardHeat 2": {
-            "baseboard_heating_capacity": 600,
-            "baseboard_heating_type": "HotWater",
-            "template_thermostat_name": "ThermostatBedroom",
-            "zone_name": "Bedroom"
-        }
-    },
     "Material": {
         "Brick": {
             "conductivity": 0.72,
@@ -630,6 +808,18 @@
             "thickness": 0.013
         }
     },
+    "NodeList": {
+        "Pipes HW Supply Setpoint Nodes": {
+            "nodes": [
+                {
+                    "node_name": "MainBoilerPlant HW Outlet"
+                },
+                {
+                    "node_name": "Pipes HW Supply Outlet"
+                }
+            ]
+        }
+    },
     "Output:Table:SummaryReports": {
         "Output:Table:SummaryReports 1": {
             "reports": [
@@ -666,6 +856,86 @@
             "key_field": "IDF"
         }
     },
+    "Pipe:Adiabatic": {
+        "Pipes HW Demand Inlet Pipe": {
+            "inlet_node_name": "Pipes HW Demand Inlet",
+            "outlet_node_name": "Pipes HW Demand Inlet Pipe Outlet"
+        },
+        "Pipes HW Demand Outlet Pipe": {
+            "inlet_node_name": "Pipes HW Demand Outlet Pipe Inlet",
+            "outlet_node_name": "Pipes HW Demand Outlet"
+        },
+        "Pipes HW Demand Side Bypass Pipe": {
+            "inlet_node_name": "Pipes HW Demand Bypass Inlet",
+            "outlet_node_name": "Pipes HW Demand Bypass Outlet"
+        },
+        "Pipes HW Supply Outlet Pipe": {
+            "inlet_node_name": "Pipes HW Supply Outlet Pipe Inlet",
+            "outlet_node_name": "Pipes HW Supply Outlet"
+        },
+        "Pipes HW Supply Side Bypass Pipe": {
+            "inlet_node_name": "Pipes HW Supply Bypass Inlet",
+            "outlet_node_name": "Pipes HW Supply Bypass Outlet"
+        }
+    },
+    "PlantEquipmentList": {
+        "Pipes All Equipment": {
+            "equipment": [
+                {
+                    "equipment_name": "MainBoilerPlant",
+                    "equipment_object_type": "Boiler:HotWater"
+                }
+            ]
+        }
+    },
+    "PlantEquipmentOperation:HeatingLoad": {
+        "Pipes Operation All Hours": {
+            "load_range_1_lower_limit": 0,
+            "load_range_1_upper_limit": 1e+15,
+            "range_1_equipment_list_name": "Pipes All Equipment"
+        }
+    },
+    "PlantEquipmentOperationSchemes": {
+        "Pipes Operation": {
+            "control_scheme_1_name": "Pipes Operation All Hours",
+            "control_scheme_1_object_type": "PlantEquipmentOperation:HeatingLoad",
+            "control_scheme_1_schedule_name": "HVACTemplate-Always 1"
+        }
+    },
+    "PlantLoop": {
+        "Pipes Hot Water Loop": {
+            "demand_side_branch_list_name": "Pipes HW Demand Side Branches",
+            "demand_side_connector_list_name": "Pipes HW Demand Side Connectors",
+            "demand_side_inlet_node_name": "Pipes HW Demand Inlet",
+            "demand_side_outlet_node_name": "Pipes HW Demand Outlet",
+            "fluid_type": "Water",
+            "load_distribution_scheme": "SequentialLoad",
+            "loop_temperature_setpoint_node_name": "Pipes HW Supply Outlet",
+            "maximum_loop_flow_rate": "Autosize",
+            "maximum_loop_temperature": 100,
+            "minimum_loop_flow_rate": 0,
+            "minimum_loop_temperature": 10,
+            "plant_equipment_operation_scheme_name": "Pipes Operation",
+            "plant_loop_demand_calculation_scheme": "SingleSetpoint",
+            "plant_loop_volume": "Autocalculate",
+            "plant_side_branch_list_name": "Pipes HW Supply Side Branches",
+            "plant_side_connector_list_name": "Pipes HW Supply Side Connectors",
+            "plant_side_inlet_node_name": "Pipes HW Supply Inlet",
+            "plant_side_outlet_node_name": "Pipes HW Supply Outlet"
+        }
+    },
+    "Pump:ConstantSpeed": {
+        "Pipes HW Supply Pump": {
+            "design_flow_rate": "Autosize",
+            "design_power_consumption": "Autosize",
+            "design_pump_head": 179352,
+            "fraction_of_motor_inefficiencies_to_fluid_stream": 0,
+            "inlet_node_name": "Pipes HW Supply Inlet",
+            "motor_efficiency": 0.9,
+            "outlet_node_name": "Pipes HW Pump Outlet",
+            "pump_control_type": "Intermittent"
+        }
+    },
     "RunPeriod": {
         "PeriodSimu": {
             "apply_weekend_holiday_rule": "No",
@@ -673,13 +943,143 @@
             "begin_month": 1,
             "end_day_of_month": 31,
             "end_month": 12,
-            "day_of_week_for_start_day": "Monday",
             "first_hour_interpolation_starting_values": "Hour24",
             "treat_weather_as_actual": "No",
             "use_weather_file_daylight_saving_period": "Yes",
             "use_weather_file_holidays_and_special_days": "Yes",
             "use_weather_file_rain_indicators": "Yes",
             "use_weather_file_snow_indicators": "Yes"
+        }
+    },
+    "Schedule:Compact": {
+        "HVACTemplate-Always 1": {
+            "data": [
+                {
+                    "field": "Through: 12/31"
+                },
+                {
+                    "field": "For: AllDays"
+                },
+                {
+                    "field": "Until: 24:00"
+                },
+                {
+                    "field": 1
+                }
+            ],
+            "schedule_type_limits_name": "HVACTemplate Any Number"
+        },
+        "HVACTemplate-Always 4": {
+            "data": [
+                {
+                    "field": "Through: 12/31"
+                },
+                {
+                    "field": "For: AllDays"
+                },
+                {
+                    "field": "Until: 24:00"
+                },
+                {
+                    "field": 4
+                }
+            ],
+            "schedule_type_limits_name": "HVACTemplate Any Number"
+        },
+        "HVACTemplate-Always 21": {
+            "data": [
+                {
+                    "field": "Through: 12/31"
+                },
+                {
+                    "field": "For: AllDays"
+                },
+                {
+                    "field": "Until: 24:00"
+                },
+                {
+                    "field": 21
+                }
+            ],
+            "schedule_type_limits_name": "HVACTemplate Any Number"
+        },
+        "HVACTemplate-Always 24": {
+            "data": [
+                {
+                    "field": "Through: 12/31"
+                },
+                {
+                    "field": "For: AllDays"
+                },
+                {
+                    "field": "Until: 24:00"
+                },
+                {
+                    "field": 24
+                }
+            ],
+            "schedule_type_limits_name": "HVACTemplate Any Number"
+        },
+        "HVACTemplate-Always 25": {
+            "data": [
+                {
+                    "field": "Through: 12/31"
+                },
+                {
+                    "field": "For: AllDays"
+                },
+                {
+                    "field": "Until: 24:00"
+                },
+                {
+                    "field": 25
+                }
+            ],
+            "schedule_type_limits_name": "HVACTemplate Any Number"
+        },
+        "HVACTemplate-Always 27": {
+            "data": [
+                {
+                    "field": "Through: 12/31"
+                },
+                {
+                    "field": "For: AllDays"
+                },
+                {
+                    "field": "Until: 24:00"
+                },
+                {
+                    "field": 27
+                }
+            ],
+            "schedule_type_limits_name": "HVACTemplate Any Number"
+        },
+        "HVACTemplate-Always 82": {
+            "data": [
+                {
+                    "field": "Through: 12/31"
+                },
+                {
+                    "field": "For: AllDays"
+                },
+                {
+                    "field": "Until: 24:00"
+                },
+                {
+                    "field": 82
+                }
+            ],
+            "schedule_type_limits_name": "HVACTemplate Any Number"
+        }
+    },
+    "ScheduleTypeLimits": {
+        "HVACTemplate Any Number": {}
+    },
+    "SetpointManager:Scheduled": {
+        "Pipes HW Temp Manager": {
+            "control_variable": "Temperature",
+            "schedule_name": "HVACTemplate-Always 82",
+            "setpoint_node_or_nodelist_name": "Pipes HW Supply Setpoint Nodes"
         }
     },
     "SimulationControl": {
@@ -699,6 +1099,46 @@
             "latitude": 51.25,
             "longitude": 7.64,
             "time_zone": 1.0
+        }
+    },
+    "Sizing:Plant": {
+        "Sizing:Plant 1": {
+            "design_loop_exit_temperature": 82,
+            "loop_design_temperature_difference": 11,
+            "loop_type": "Heating",
+            "plant_or_condenser_loop_name": "Pipes Hot Water Loop"
+        }
+    },
+    "Sizing:Zone": {
+        "Sizing:Zone 1": {
+            "cooling_design_air_flow_method": "DesignDay",
+            "cooling_design_air_flow_rate": 0,
+            "cooling_minimum_air_flow_fraction": 0,
+            "heating_design_air_flow_method": "DesignDay",
+            "heating_design_air_flow_rate": 0,
+            "heating_maximum_air_flow_fraction": 0,
+            "zone_cooling_design_supply_air_humidity_ratio": 0.008,
+            "zone_cooling_design_supply_air_temperature": 12.5,
+            "zone_cooling_design_supply_air_temperature_input_method": "SupplyAirTemperature",
+            "zone_heating_design_supply_air_humidity_ratio": 0.008,
+            "zone_heating_design_supply_air_temperature": 50,
+            "zone_heating_design_supply_air_temperature_input_method": "SupplyAirTemperature",
+            "zone_or_zonelist_name": "LivingRoom"
+        },
+        "Sizing:Zone 2": {
+            "cooling_design_air_flow_method": "DesignDay",
+            "cooling_design_air_flow_rate": 0,
+            "cooling_minimum_air_flow_fraction": 0,
+            "heating_design_air_flow_method": "DesignDay",
+            "heating_design_air_flow_rate": 0,
+            "heating_maximum_air_flow_fraction": 0,
+            "zone_cooling_design_supply_air_humidity_ratio": 0.008,
+            "zone_cooling_design_supply_air_temperature": 12.5,
+            "zone_cooling_design_supply_air_temperature_input_method": "SupplyAirTemperature",
+            "zone_heating_design_supply_air_humidity_ratio": 0.008,
+            "zone_heating_design_supply_air_temperature": 50,
+            "zone_heating_design_supply_air_temperature_input_method": "SupplyAirTemperature",
+            "zone_or_zonelist_name": "Bedroom"
         }
     },
     "SizingPeriod:WeatherFileConditionType": {
@@ -750,6 +1190,16 @@
             "use_weather_file_rain_and_snow_indicators": "Yes"
         }
     },
+    "ThermostatSetpoint:DualSetpoint": {
+        "ThermostatBedroom Dual SP Control": {
+            "cooling_setpoint_temperature_schedule_name": "HVACTemplate-Always 27",
+            "heating_setpoint_temperature_schedule_name": "HVACTemplate-Always 25"
+        },
+        "ThermostatLivingRoom Dual SP Control": {
+            "cooling_setpoint_temperature_schedule_name": "HVACTemplate-Always 24",
+            "heating_setpoint_temperature_schedule_name": "HVACTemplate-Always 21"
+        }
+    },
     "Timestep": {
         "Timestep 1": {
             "number_of_timesteps_per_hour": 4
@@ -757,7 +1207,7 @@
     },
     "Version": {
         "Version 1": {
-            "version_identifier": "24.1"
+            "version_identifier": "25.1"
         }
     },
     "WindowMaterial:SimpleGlazingSystem": {
@@ -780,6 +1230,92 @@
             "x_origin": 0,
             "y_origin": 0,
             "z_origin": 0
+        }
+    },
+    "ZoneControl:Thermostat": {
+        "Bedroom Thermostat": {
+            "control_1_name": "ThermostatBedroom Dual SP Control",
+            "control_1_object_type": "ThermostatSetpoint:DualSetpoint",
+            "control_type_schedule_name": "HVACTemplate-Always 4",
+            "zone_or_zonelist_name": "Bedroom"
+        },
+        "LivingRoom Thermostat": {
+            "control_1_name": "ThermostatLivingRoom Dual SP Control",
+            "control_1_object_type": "ThermostatSetpoint:DualSetpoint",
+            "control_type_schedule_name": "HVACTemplate-Always 4",
+            "zone_or_zonelist_name": "LivingRoom"
+        }
+    },
+    "ZoneHVAC:Baseboard:RadiantConvective:Water": {
+        "Bedroom Baseboard Heat": {
+            "design_object": "Bedroom Baseboard Heat Design Object",
+            "heating_design_capacity": 600,
+            "inlet_node_name": "Bedroom Baseboard HW Inlet",
+            "maximum_water_flow_rate": "Autosize",
+            "outlet_node_name": "Bedroom Baseboard HW Outlet",
+            "rated_average_water_temperature": 82.2,
+            "rated_water_mass_flow_rate": 0.063
+        },
+        "LivingRoom Baseboard Heat": {
+            "design_object": "LivingRoom Baseboard Heat Design Object",
+            "heating_design_capacity": 600,
+            "inlet_node_name": "LivingRoom Baseboard HW Inlet",
+            "maximum_water_flow_rate": "Autosize",
+            "outlet_node_name": "LivingRoom Baseboard HW Outlet",
+            "rated_average_water_temperature": 82.2,
+            "rated_water_mass_flow_rate": 0.063
+        }
+    },
+    "ZoneHVAC:Baseboard:RadiantConvective:Water:Design": {
+        "Bedroom Baseboard Heat Design Object": {
+            "convergence_tolerance": 0.001,
+            "fraction_of_radiant_energy_incident_on_people": 0.0,
+            "fraction_radiant": 0.0,
+            "heating_design_capacity_method": "HeatingDesignCapacity"
+        },
+        "LivingRoom Baseboard Heat Design Object": {
+            "convergence_tolerance": 0.001,
+            "fraction_of_radiant_energy_incident_on_people": 0.0,
+            "fraction_radiant": 0.0,
+            "heating_design_capacity_method": "HeatingDesignCapacity"
+        }
+    },
+    "ZoneHVAC:EquipmentConnections": {
+        "ZoneHVAC:EquipmentConnections 1": {
+            "zone_air_node_name": "LivingRoom Zone Air Node",
+            "zone_conditioning_equipment_list_name": "LivingRoom Equipment",
+            "zone_name": "LivingRoom",
+            "zone_return_air_node_or_nodelist_name": "LivingRoom Return Outlet"
+        },
+        "ZoneHVAC:EquipmentConnections 2": {
+            "zone_air_node_name": "Bedroom Zone Air Node",
+            "zone_conditioning_equipment_list_name": "Bedroom Equipment",
+            "zone_name": "Bedroom",
+            "zone_return_air_node_or_nodelist_name": "Bedroom Return Outlet"
+        }
+    },
+    "ZoneHVAC:EquipmentList": {
+        "Bedroom Equipment": {
+            "equipment": [
+                {
+                    "zone_equipment_cooling_sequence": 1,
+                    "zone_equipment_heating_or_no_load_sequence": 1,
+                    "zone_equipment_name": "Bedroom Baseboard Heat",
+                    "zone_equipment_object_type": "ZoneHVAC:Baseboard:RadiantConvective:Water"
+                }
+            ],
+            "load_distribution_scheme": "SequentialLoad"
+        },
+        "LivingRoom Equipment": {
+            "equipment": [
+                {
+                    "zone_equipment_cooling_sequence": 1,
+                    "zone_equipment_heating_or_no_load_sequence": 1,
+                    "zone_equipment_name": "LivingRoom Baseboard Heat",
+                    "zone_equipment_object_type": "ZoneHVAC:Baseboard:RadiantConvective:Water"
+                }
+            ],
+            "load_distribution_scheme": "SequentialLoad"
         }
     }
 }
