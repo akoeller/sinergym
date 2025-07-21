@@ -673,6 +673,7 @@
             "begin_month": 1,
             "end_day_of_month": 31,
             "end_month": 12,
+            "day_of_week_for_start_day": "Monday",
             "first_hour_interpolation_starting_values": "Hour24",
             "treat_weather_as_actual": "No",
             "use_weather_file_daylight_saving_period": "Yes",
@@ -756,7 +757,7 @@
     },
     "Version": {
         "Version 1": {
-            "version_identifier": "25.1"
+            "version_identifier": "24.1"
         }
     },
     "WindowMaterial:SimpleGlazingSystem": {
