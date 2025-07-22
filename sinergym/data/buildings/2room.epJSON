@@ -849,6 +849,11 @@
             "key_value": "*",
             "reporting_frequency": "Timestep",
             "variable_name": "Boiler Heating Rate"
+        },
+        "Output:Variable 5": {
+            "key_value": "*",
+            "reporting_frequency": "Timestep",
+            "variable_name": "Boiler NaturalGas Rate"
         }
     },
     "Output:VariableDictionary": {
@@ -943,7 +948,6 @@
             "begin_month": 1,
             "end_day_of_month": 31,
             "end_month": 12,
-            "day_of_week_for_start_day": "Monday",
             "first_hour_interpolation_starting_values": "Hour24",
             "treat_weather_as_actual": "No",
             "use_weather_file_daylight_saving_period": "Yes",
@@ -1016,7 +1020,7 @@
                     "field": "Until: 24:00"
                 },
                 {
-                    "field": 300
+                    "field": 24
                 }
             ],
             "schedule_type_limits_name": "HVACTemplate Any Number"
@@ -1050,7 +1054,7 @@
                     "field": "Until: 24:00"
                 },
                 {
-                    "field": 300
+                    "field": 27
                 }
             ],
             "schedule_type_limits_name": "HVACTemplate Any Number"
