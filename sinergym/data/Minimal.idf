@@ -1,0 +1,845 @@
+!-Generator IDFEditor 1.55
+!-Option SortedOrder
+
+!-NOTE: All comments with '!-' are ignored by the IDFEditor and are generated automatically.
+!-      Use '!' comments if they need to be retained when using the IDFEditor.
+
+
+!-   ===========  ALL OBJECTS IN CLASS: VERSION ===========
+
+Version,
+    25.1;                    !- Version Identifier
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SIMULATIONCONTROL ===========
+
+SimulationControl,
+    No,                      !- Do Zone Sizing Calculation
+    Yes,                     !- Do System Sizing Calculation
+    Yes,                     !- Do Plant Sizing Calculation
+    No,                      !- Run Simulation for Sizing Periods
+    Yes,                     !- Run Simulation for Weather File Run Periods
+    No,                      !- Do HVAC Sizing Simulation for Sizing Periods
+    1;                       !- Maximum Number of HVAC Sizing Simulation Passes
+
+
+!-   ===========  ALL OBJECTS IN CLASS: BUILDING ===========
+
+Building,
+    2room,                   !- Name
+    0,                       !- North Axis {deg}
+    Suburbs,                 !- Terrain
+    0.04,                    !- Loads Convergence Tolerance Value {W}
+    0.40,                    !- Temperature Convergence Tolerance Value {deltaC}
+    FullExterior,            !- Solar Distribution
+    25,                      !- Maximum Number of Warmup Days
+    6;                       !- Minimum Number of Warmup Days
+
+
+!-   ===========  ALL OBJECTS IN CLASS: TIMESTEP ===========
+
+Timestep,
+    4;                       !- Number of Timesteps per Hour
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SITE:LOCATION ===========
+
+Site:Location,
+    Luedenscheid_NW_DEU Design_Conditions,  !- Name
+    51.25,                   !- Latitude {deg}
+    7.64,                    !- Longitude {deg}
+    1.00,                    !- Time Zone {hr}
+    389.40;                  !- Elevation {m}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SIZINGPERIOD:WEATHERFILEDAYS ===========
+
+SizingPeriod:WeatherFileDays,
+    DEU_NW_Luedenscheid.104180_TMYx.2007-2021.epw,  !- Name
+    1,                       !- Begin Month
+    31,                      !- Begin Day of Month
+    12,                      !- End Month
+    31,                      !- End Day of Month
+    Monday,                  !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Daylight Saving Period
+    Yes;                     !- Use Weather File Rain and Snow Indicators
+
+
+!-   ===========  ALL OBJECTS IN CLASS: SIZINGPERIOD:WEATHERFILECONDITIONTYPE ===========
+
+SizingPeriod:WeatherFileConditionType,
+    Summer Extreme,          !- Name
+    SummerExtreme,           !- Period Selection
+    SummerDesignDay,         !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Daylight Saving Period
+    Yes;                     !- Use Weather File Rain and Snow Indicators
+
+SizingPeriod:WeatherFileConditionType,
+    Summer Typical,          !- Name
+    SummerTypical,           !- Period Selection
+    Monday,                  !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Daylight Saving Period
+    Yes;                     !- Use Weather File Rain and Snow Indicators
+
+SizingPeriod:WeatherFileConditionType,
+    Winter Extreme,          !- Name
+    WinterExtreme,           !- Period Selection
+    WinterDesignDay,         !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Daylight Saving Period
+    Yes;                     !- Use Weather File Rain and Snow Indicators
+
+SizingPeriod:WeatherFileConditionType,
+    Winter Typical,          !- Name
+    WinterTypical,           !- Period Selection
+    Monday,                  !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Daylight Saving Period
+    Yes;                     !- Use Weather File Rain and Snow Indicators
+
+SizingPeriod:WeatherFileConditionType,
+    Autumn Typical,          !- Name
+    AutumnTypical,           !- Period Selection
+    Monday,                  !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Daylight Saving Period
+    Yes;                     !- Use Weather File Rain and Snow Indicators
+
+SizingPeriod:WeatherFileConditionType,
+    Spring Typical,          !- Name
+    SpringTypical,           !- Period Selection
+    Monday,                  !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Daylight Saving Period
+    Yes;                     !- Use Weather File Rain and Snow Indicators
+
+
+!-   ===========  ALL OBJECTS IN CLASS: RUNPERIOD ===========
+
+RunPeriod,
+    PeriodSimu,              !- Name
+    1,                       !- Begin Month
+    1,                       !- Begin Day of Month
+    ,                        !- Begin Year
+    12,                      !- End Month
+    31,                      !- End Day of Month
+    ,                        !- End Year
+    ,                        !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Holidays and Special Days
+    Yes,                     !- Use Weather File Daylight Saving Period
+    No,                      !- Apply Weekend Holiday Rule
+    Yes,                     !- Use Weather File Rain Indicators
+    Yes,                     !- Use Weather File Snow Indicators
+    No,                      !- Treat Weather as Actual
+    Hour24;                  !- First Hour Interpolation Starting Values
+
+
+!-   ===========  ALL OBJECTS IN CLASS: MATERIAL ===========
+
+! ------------------------------------------------------------------
+! Constructions and Materials
+! External wall U ≈0.33 W/m2K (brick+EPS)    sources: turn0search3, turn0search4
+! Roof U ≈0.23 W/m2K (concrete+mineral wool) sources: turn0search3, turn0search4
+! Slab U ≈0.31 W/m2K (concrete+FloorIns)     sources: turn1search1
+! Interior wall U ≈0.45 W/m2K (brick)        sources: turn0search3
+! ------------------------------------------------------------------
+Material,
+    Plaster,                 !- Name
+    Rough,                   !- Roughness
+    0.013,                   !- Thickness {m}
+    0.57,                    !- Conductivity {W/m-K}
+    1200,                    !- Density {kg/m3}
+    840;                     !- Specific Heat {J/kg-K}
+
+Material,
+    Brick,                   !- Name
+    Rough,                   !- Roughness
+    0.20,                    !- Thickness {m}
+    0.72,                    !- Conductivity {W/m-K}
+    1800,                    !- Density {kg/m3}
+    840;                     !- Specific Heat {J/kg-K}
+
+Material,
+    EPS,                     !- Name
+    Rough,                   !- Roughness
+    0.10,                    !- Thickness {m}
+    0.04,                    !- Conductivity {W/m-K}
+    30,                      !- Density {kg/m3}
+    1400;                    !- Specific Heat {J/kg-K}
+
+Material,
+    MineralWool,             !- Name
+    Rough,                   !- Roughness
+    0.16,                    !- Thickness {m}
+    0.04,                    !- Conductivity {W/m-K}
+    70,                      !- Density {kg/m3}
+    1030;                    !- Specific Heat {J/kg-K}
+
+Material,
+    Concrete,                !- Name
+    Rough,                   !- Roughness
+    0.20,                    !- Thickness {m}
+    1.4,                     !- Conductivity {W/m-K}
+    2300,                    !- Density {kg/m3}
+    920;                     !- Specific Heat {J/kg-K}
+
+Material,
+    FloorIns,                !- Name
+    Rough,                   !- Roughness
+    0.10,                    !- Thickness {m}
+    0.035,                   !- Conductivity {W/m-K}
+    35,                      !- Density {kg/m3}
+    1030;                    !- Specific Heat {J/kg-K}
+
+Material,
+    ExtDoorInsulated,        !- Name
+    MediumRough,             !- Roughness
+    0.05,                    !- Thickness {m}
+    0.055,                   !- Conductivity {W/m-K}
+    520,                     !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    IntDoorWood,             !- Name
+    MediumSmooth,            !- Roughness
+    0.04,                    !- Thickness {m}
+    0.15,                    !- Conductivity {W/m-K}
+    550,                     !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: WINDOWMATERIAL:SIMPLEGLAZINGSYSTEM ===========
+
+WindowMaterial:SimpleGlazingSystem,
+    DE_DoubleLowE,           !- Name
+    1.1,                     !- U-Factor {W/m2-K}
+    0.60;                    !- Solar Heat Gain Coefficient
+
+
+!-   ===========  ALL OBJECTS IN CLASS: CONSTRUCTION ===========
+
+Construction,
+    ExtWall,                 !- Name
+    Plaster,                 !- Outside Layer
+    Brick,                   !- Layer 2
+    EPS;                     !- Layer 3
+
+Construction,
+    IntWall,                 !- Name
+    Plaster,                 !- Outside Layer
+    Brick,                   !- Layer 2
+    Plaster;                 !- Layer 3
+
+Construction,
+    Roof,                    !- Name
+    Plaster,                 !- Outside Layer
+    MineralWool,             !- Layer 2
+    Concrete;                !- Layer 3
+
+Construction,
+    Slab,                    !- Name
+    Concrete,                !- Outside Layer
+    FloorIns;                !- Layer 2
+
+Construction,
+    ExtDoor,                 !- Name
+    ExtDoorInsulated;        !- Outside Layer
+
+Construction,
+    IntDoor,                 !- Name
+    IntDoorWood;             !- Outside Layer
+
+Construction,
+    Win_DoubleLowE,          !- Name
+    DE_DoubleLowE;           !- Outside Layer
+
+
+!-   ===========  ALL OBJECTS IN CLASS: GLOBALGEOMETRYRULES ===========
+
+GlobalGeometryRules,
+    UpperLeftCorner,         !- Starting Vertex Position
+    CounterClockWise,        !- Vertex Entry Direction
+    Relative;                !- Coordinate System
+
+
+!-   ===========  ALL OBJECTS IN CLASS: ZONE ===========
+
+! ------------------------------------------------------------------
+! Zones
+! ------------------------------------------------------------------
+Zone,
+    LivingRoom,              !- Name
+    0,                       !- Direction of Relative North {deg}
+    0,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
+    ,                        !- Type
+    ,                        !- Multiplier
+    3;                       !- Ceiling Height {m}
+
+Zone,
+    Bedroom,                 !- Name
+    0,                       !- Direction of Relative North {deg}
+    2,                       !- X Origin {m}
+    0,                       !- Y Origin {m}
+    0,                       !- Z Origin {m}
+    ,                        !- Type
+    ,                        !- Multiplier
+    3;                       !- Ceiling Height {m}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: BUILDINGSURFACE:DETAILED ===========
+
+! ------------------------------------------------------------------
+! Geometry (2m x 2m x 4m each zone; Bedroom shifted +2m in X)
+! ------------------------------------------------------------------
+BuildingSurface:Detailed,
+    LR_Floor,                !- Name
+    Floor,                   !- Surface Type
+    Slab,                    !- Construction Name
+    LivingRoom,              !- Zone Name
+    ,                        !- Space Name
+    Ground,                  !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    0,                       !- Vertex 1 X-coordinate {m}
+    4,                       !- Vertex 1 Y-coordinate {m}
+    0,                       !- Vertex 1 Z-coordinate {m}
+    2,                       !- Vertex 2 X-coordinate {m}
+    4,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    2,                       !- Vertex 3 X-coordinate {m}
+    0,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    0,                       !- Vertex 4 X-coordinate {m}
+    0,                       !- Vertex 4 Y-coordinate {m}
+    0;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    LR_Roof,                 !- Name
+    Roof,                    !- Surface Type
+    Roof,                    !- Construction Name
+    LivingRoom,              !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    0,                       !- Vertex 1 X-coordinate {m}
+    4,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    0,                       !- Vertex 2 X-coordinate {m}
+    0,                       !- Vertex 2 Y-coordinate {m}
+    3,                       !- Vertex 2 Z-coordinate {m}
+    2,                       !- Vertex 3 X-coordinate {m}
+    0,                       !- Vertex 3 Y-coordinate {m}
+    3,                       !- Vertex 3 Z-coordinate {m}
+    2,                       !- Vertex 4 X-coordinate {m}
+    4,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    LR_Wall_N,               !- Name
+    Wall,                    !- Surface Type
+    ExtWall,                 !- Construction Name
+    LivingRoom,              !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    0,                       !- Vertex 1 X-coordinate {m}
+    4,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    0,                       !- Vertex 2 X-coordinate {m}
+    4,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    2,                       !- Vertex 3 X-coordinate {m}
+    4,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    2,                       !- Vertex 4 X-coordinate {m}
+    4,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    LR_Wall_S,               !- Name
+    Wall,                    !- Surface Type
+    ExtWall,                 !- Construction Name
+    LivingRoom,              !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    2,                       !- Vertex 1 X-coordinate {m}
+    0,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    2,                       !- Vertex 2 X-coordinate {m}
+    0,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    0,                       !- Vertex 3 X-coordinate {m}
+    0,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    0,                       !- Vertex 4 X-coordinate {m}
+    0,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    LR_Wall_W,               !- Name
+    Wall,                    !- Surface Type
+    ExtWall,                 !- Construction Name
+    LivingRoom,              !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    0,                       !- Vertex 1 X-coordinate {m}
+    0,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    0,                       !- Vertex 2 X-coordinate {m}
+    0,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    0,                       !- Vertex 3 X-coordinate {m}
+    4,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    0,                       !- Vertex 4 X-coordinate {m}
+    4,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    LR_Wall_E,               !- Name
+    Wall,                    !- Surface Type
+    IntWall,                 !- Construction Name
+    LivingRoom,              !- Zone Name
+    ,                        !- Space Name
+    Surface,                 !- Outside Boundary Condition
+    BR_Wall_W,               !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    2,                       !- Vertex 1 X-coordinate {m}
+    0,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    2,                       !- Vertex 2 X-coordinate {m}
+    0,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    2,                       !- Vertex 3 X-coordinate {m}
+    4,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    2,                       !- Vertex 4 X-coordinate {m}
+    4,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    BR_Floor,                !- Name
+    Floor,                   !- Surface Type
+    Slab,                    !- Construction Name
+    Bedroom,                 !- Zone Name
+    ,                        !- Space Name
+    Ground,                  !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    2,                       !- Vertex 1 X-coordinate {m}
+    4,                       !- Vertex 1 Y-coordinate {m}
+    0,                       !- Vertex 1 Z-coordinate {m}
+    4,                       !- Vertex 2 X-coordinate {m}
+    4,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    4,                       !- Vertex 3 X-coordinate {m}
+    0,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    2,                       !- Vertex 4 X-coordinate {m}
+    0,                       !- Vertex 4 Y-coordinate {m}
+    0;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    BR_Roof,                 !- Name
+    Roof,                    !- Surface Type
+    Roof,                    !- Construction Name
+    Bedroom,                 !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    2,                       !- Vertex 1 X-coordinate {m}
+    4,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    2,                       !- Vertex 2 X-coordinate {m}
+    0,                       !- Vertex 2 Y-coordinate {m}
+    3,                       !- Vertex 2 Z-coordinate {m}
+    4,                       !- Vertex 3 X-coordinate {m}
+    0,                       !- Vertex 3 Y-coordinate {m}
+    3,                       !- Vertex 3 Z-coordinate {m}
+    4,                       !- Vertex 4 X-coordinate {m}
+    4,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    BR_Wall_N,               !- Name
+    Wall,                    !- Surface Type
+    ExtWall,                 !- Construction Name
+    Bedroom,                 !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    2,                       !- Vertex 1 X-coordinate {m}
+    4,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    2,                       !- Vertex 2 X-coordinate {m}
+    4,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    4,                       !- Vertex 3 X-coordinate {m}
+    4,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    4,                       !- Vertex 4 X-coordinate {m}
+    4,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    BR_Wall_S,               !- Name
+    Wall,                    !- Surface Type
+    ExtWall,                 !- Construction Name
+    Bedroom,                 !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    ,                        !- Number of Vertices
+    4,                       !- Vertex 1 X-coordinate {m}
+    0,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    4,                       !- Vertex 2 X-coordinate {m}
+    0,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    2,                       !- Vertex 3 X-coordinate {m}
+    0,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    2,                       !- Vertex 4 X-coordinate {m}
+    0,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    BR_Wall_E,               !- Name
+    Wall,                    !- Surface Type
+    ExtWall,                 !- Construction Name
+    Bedroom,                 !- Zone Name
+    ,                        !- Space Name
+    Outdoors,                !- Outside Boundary Condition
+    ,                        !- Outside Boundary Condition Object
+    SunExposed,              !- Sun Exposure
+    WindExposed,             !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    4,                       !- Vertex 1 X-coordinate {m}
+    0,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    4,                       !- Vertex 2 X-coordinate {m}
+    0,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    4,                       !- Vertex 3 X-coordinate {m}
+    4,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    4,                       !- Vertex 4 X-coordinate {m}
+    4,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+BuildingSurface:Detailed,
+    BR_Wall_W,               !- Name
+    Wall,                    !- Surface Type
+    IntWall,                 !- Construction Name
+    Bedroom,                 !- Zone Name
+    ,                        !- Space Name
+    Surface,                 !- Outside Boundary Condition
+    LR_Wall_E,               !- Outside Boundary Condition Object
+    NoSun,                   !- Sun Exposure
+    NoWind,                  !- Wind Exposure
+    ,                        !- View Factor to Ground
+    4,                       !- Number of Vertices
+    2,                       !- Vertex 1 X-coordinate {m}
+    4,                       !- Vertex 1 Y-coordinate {m}
+    3,                       !- Vertex 1 Z-coordinate {m}
+    2,                       !- Vertex 2 X-coordinate {m}
+    4,                       !- Vertex 2 Y-coordinate {m}
+    0,                       !- Vertex 2 Z-coordinate {m}
+    2,                       !- Vertex 3 X-coordinate {m}
+    0,                       !- Vertex 3 Y-coordinate {m}
+    0,                       !- Vertex 3 Z-coordinate {m}
+    2,                       !- Vertex 4 X-coordinate {m}
+    0,                       !- Vertex 4 Y-coordinate {m}
+    3;                       !- Vertex 4 Z-coordinate {m}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: FENESTRATIONSURFACE:DETAILED ===========
+
+! --- Front door in the south wall of LivingRoom (LR_Wall_S) ---
+FenestrationSurface:Detailed,
+    FrontDoor,               !- Name
+    Door,                    !- Surface Type
+    ExtDoor,                 !- Construction Name
+    LR_Wall_S,               !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    1.0,                     !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    1.45,                    !- Vertex 1 X-coordinate {m}
+    0.0,                     !- Vertex 1 Y-coordinate {m}
+    2.10,                    !- Vertex 1 Z-coordinate {m}
+    1.45,                    !- Vertex 2 X-coordinate {m}
+    0.0,                     !- Vertex 2 Y-coordinate {m}
+    0.00,                    !- Vertex 2 Z-coordinate {m}
+    0.55,                    !- Vertex 3 X-coordinate {m}
+    0.0,                     !- Vertex 3 Y-coordinate {m}
+    0.00,                    !- Vertex 3 Z-coordinate {m}
+    0.55,                    !- Vertex 4 X-coordinate {m}
+    0.0,                     !- Vertex 4 Y-coordinate {m}
+    2.10;                    !- Vertex 4 Z-coordinate {m}
+
+! --- Inter-zone door: LivingRoom side (LR_Wall_E @ x=2 m) ---
+FenestrationSurface:Detailed,
+    Door_LR_to_BR,           !- Name
+    Door,                    !- Surface Type
+    IntDoor,                 !- Construction Name
+    LR_Wall_E,               !- Building Surface Name
+    Door_BR_to_LR,           !- Outside Boundary Condition Object
+    1.0,                     !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    2.00,                    !- Vertex 1 X-coordinate {m}
+    1.55,                    !- Vertex 1 Y-coordinate {m}
+    2.10,                    !- Vertex 1 Z-coordinate {m}
+    2.00,                    !- Vertex 2 X-coordinate {m}
+    1.55,                    !- Vertex 2 Y-coordinate {m}
+    0.00,                    !- Vertex 2 Z-coordinate {m}
+    2.00,                    !- Vertex 3 X-coordinate {m}
+    2.45,                    !- Vertex 3 Y-coordinate {m}
+    0.00,                    !- Vertex 3 Z-coordinate {m}
+    2.00,                    !- Vertex 4 X-coordinate {m}
+    2.45,                    !- Vertex 4 Y-coordinate {m}
+    2.10;                    !- Vertex 4 Z-coordinate {m}
+
+! --- Inter-zone door: Bedroom side (BR_Wall_W @ x=2 m) ---
+FenestrationSurface:Detailed,
+    Door_BR_to_LR,           !- Name
+    Door,                    !- Surface Type
+    IntDoor,                 !- Construction Name
+    BR_Wall_W,               !- Building Surface Name
+    Door_LR_to_BR,           !- Outside Boundary Condition Object
+    1.0,                     !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    2.00,                    !- Vertex 1 X-coordinate {m}
+    2.45,                    !- Vertex 1 Y-coordinate {m}
+    2.10,                    !- Vertex 1 Z-coordinate {m}
+    2.00,                    !- Vertex 2 X-coordinate {m}
+    2.45,                    !- Vertex 2 Y-coordinate {m}
+    0.00,                    !- Vertex 2 Z-coordinate {m}
+    2.00,                    !- Vertex 3 X-coordinate {m}
+    1.55,                    !- Vertex 3 Y-coordinate {m}
+    0.00,                    !- Vertex 3 Z-coordinate {m}
+    2.00,                    !- Vertex 4 X-coordinate {m}
+    1.55,                    !- Vertex 4 Y-coordinate {m}
+    2.10;                    !- Vertex 4 Z-coordinate {m}
+
+FenestrationSurface:Detailed,
+    LR_Window_N,             !- Name
+    Window,                  !- Surface Type
+    Win_DoubleLowE,          !- Construction Name
+    LR_Wall_N,               !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    1.0,                     !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    0.50,                    !- Vertex 1 X-coordinate {m}
+    4.00,                    !- Vertex 1 Y-coordinate {m}
+    2.10,                    !- Vertex 1 Z-coordinate {m}
+    0.50,                    !- Vertex 2 X-coordinate {m}
+    4.00,                    !- Vertex 2 Y-coordinate {m}
+    0.90,                    !- Vertex 2 Z-coordinate {m}
+    1.50,                    !- Vertex 3 X-coordinate {m}
+    4.00,                    !- Vertex 3 Y-coordinate {m}
+    0.90,                    !- Vertex 3 Z-coordinate {m}
+    1.50,                    !- Vertex 4 X-coordinate {m}
+    4.00,                    !- Vertex 4 Y-coordinate {m}
+    2.10;                    !- Vertex 4 Z-coordinate {m}
+
+FenestrationSurface:Detailed,
+    BR_Window_E,             !- Name
+    Window,                  !- Surface Type
+    Win_DoubleLowE,          !- Construction Name
+    BR_Wall_E,               !- Building Surface Name
+    ,                        !- Outside Boundary Condition Object
+    1.0,                     !- View Factor to Ground
+    ,                        !- Frame and Divider Name
+    1,                       !- Multiplier
+    4,                       !- Number of Vertices
+    4.00,                    !- Vertex 1 X-coordinate {m}
+    1.50,                    !- Vertex 1 Y-coordinate {m}
+    2.10,                    !- Vertex 1 Z-coordinate {m}
+    4.00,                    !- Vertex 2 X-coordinate {m}
+    1.50,                    !- Vertex 2 Y-coordinate {m}
+    0.90,                    !- Vertex 2 Z-coordinate {m}
+    4.00,                    !- Vertex 3 X-coordinate {m}
+    2.50,                    !- Vertex 3 Y-coordinate {m}
+    0.90,                    !- Vertex 3 Z-coordinate {m}
+    4.00,                    !- Vertex 4 X-coordinate {m}
+    2.50,                    !- Vertex 4 Y-coordinate {m}
+    2.10;                    !- Vertex 4 Z-coordinate {m}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:THERMOSTAT ===========
+
+HVACTemplate:Thermostat,
+    ThermostatLivingRoom,    !- Name
+    ,                        !- Heating Setpoint Schedule Name
+    21,                      !- Constant Heating Setpoint {C}
+    ,                        !- Cooling Setpoint Schedule Name
+    24;                      !- Constant Cooling Setpoint {C}
+
+HVACTemplate:Thermostat,
+    ThermostatBedroom,       !- Name
+    ,                        !- Heating Setpoint Schedule Name
+    25,                      !- Constant Heating Setpoint {C}
+    ,                        !- Cooling Setpoint Schedule Name
+    27;                      !- Constant Cooling Setpoint {C}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:ZONE:BASEBOARDHEAT ===========
+
+! ------------------------------------------------------------------
+! Template Zone Baseboard Heat
+! ------------------------------------------------------------------
+HVACTemplate:Zone:BaseboardHeat,
+    LivingRoom,              !- Zone Name
+    ThermostatLivingRoom,    !- Template Thermostat Name
+    ,                        !- Zone Heating Sizing Factor
+    HotWater,                !- Baseboard Heating Type
+    ,                        !- Baseboard Heating Availability Schedule Name
+    600,                     !- Baseboard Heating Capacity {W}
+    ,                        !- Dedicated Outdoor Air System Name
+    ,                        !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
+    ;                        !- Outdoor Air Flow Rate per Zone {m3/s}
+
+HVACTemplate:Zone:BaseboardHeat,
+    Bedroom,                 !- Zone Name
+    ThermostatBedroom,       !- Template Thermostat Name
+    ,                        !- Zone Heating Sizing Factor
+    HotWater,                !- Baseboard Heating Type
+    ,                        !- Baseboard Heating Availability Schedule Name
+    600,                     !- Baseboard Heating Capacity {W}
+    ,                        !- Dedicated Outdoor Air System Name
+    ,                        !- Outdoor Air Method
+    ,                        !- Outdoor Air Flow Rate per Person {m3/s}
+    ,                        !- Outdoor Air Flow Rate per Zone Floor Area {m3/s-m2}
+    ;                        !- Outdoor Air Flow Rate per Zone {m3/s}
+
+
+!-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:PLANT:HOTWATERLOOP ===========
+
+HVACTemplate:Plant:HotWaterLoop,
+    Pipes,                   !- Name
+    ,                        !- Pump Schedule Name
+    Intermittent,            !- Pump Control Type
+    Default,                 !- Hot Water Plant Operation Scheme Type
+    ,                        !- Hot Water Plant Equipment Operation Schemes Name
+    ,                        !- Hot Water Setpoint Schedule Name
+    82,                      !- Hot Water Design Setpoint {C}
+    ConstantFlow,            !- Hot Water Pump Configuration
+    179352,                  !- Hot Water Pump Rated Head {Pa}
+    None,                    !- Hot Water Setpoint Reset Type
+    82.2,                    !- Hot Water Setpoint at Outdoor Dry-Bulb Low {C}
+    -6.7,                    !- Hot Water Reset Outdoor Dry-Bulb Low {C}
+    65.6,                    !- Hot Water Setpoint at Outdoor Dry-Bulb High {C}
+    10,                      !- Hot Water Reset Outdoor Dry-Bulb High {C}
+    SinglePump,              !- Hot Water Pump Type
+    Yes,                     !- Supply Side Bypass Pipe
+    Yes,                     !- Demand Side Bypass Pipe
+    Water,                   !- Fluid Type
+    11,                      !- Loop Design Delta Temperature {deltaC}
+    ,                        !- Maximum Outdoor Dry Bulb Temperature {C}
+    SequentialLoad;          !- Load Distribution Scheme
+
+
+!-   ===========  ALL OBJECTS IN CLASS: HVACTEMPLATE:PLANT:BOILER ===========
+
+! ------------------------------------------------------------------
+! Plant Loop with Gas Boiler (template)
+! ------------------------------------------------------------------
+HVACTemplate:Plant:Boiler,
+    MainBoilerPlant,         !- Name
+    CondensingHotWaterBoiler,!- Boiler Type
+    1800,                    !- Capacity {W}
+    0.9,                     !- Efficiency
+    NaturalGas,              !- Fuel Type
+    ,                        !- Priority
+    ;                        !- Sizing Factor
+
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLEDICTIONARY ===========
+
+! ------------------------------------------------------------------
+! Output Control (optional)
+! ------------------------------------------------------------------
+Output:VariableDictionary,
+    IDF;                     !- Key Field
+
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:TABLE:SUMMARYREPORTS ===========
+
+Output:Table:SummaryReports,
+    AllSummary;              !- Report 1 Name
+
+
+!-   ===========  ALL OBJECTS IN CLASS: OUTPUT:VARIABLE ===========
+
+Output:Variable,
+    *,                       !- Key Value
+    Site Outdoor Air Drybulb Temperature,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Zone Mean Air Temperature,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Baseboard Hot Water Mass Flow Rate,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Boiler Heating Rate,     !- Variable Name
+    Timestep;                !- Reporting Frequency
+
+Output:Variable,
+    *,                       !- Key Value
+    Boiler NaturalGas Rate,  !- Variable Name
+    Timestep;                !- Reporting Frequency
+
