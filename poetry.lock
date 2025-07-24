@@ -4259,4 +4259,4 @@ test = ["coverage", "pytest", "pytest-cov", "pytest-xdist", "wandb"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.12"
-content-hash = "a7a18a0f6d1ac3da838398b22c91958e7532c844fdd3f8a5eeecc636bb995276"
+content-hash = "9dc52dabcb69da5cb8b854cd2287d8432ef178b5bc4c75281a868b086c2816b0"

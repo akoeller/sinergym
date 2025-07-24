@@ -948,6 +948,7 @@
             "begin_month": 1,
             "end_day_of_month": 31,
             "end_month": 12,
+            "day_of_week_for_start_day": "Monday",
             "first_hour_interpolation_starting_values": "Hour24",
             "treat_weather_as_actual": "No",
             "use_weather_file_daylight_saving_period": "Yes",
@@ -1008,23 +1009,6 @@
             ],
             "schedule_type_limits_name": "HVACTemplate Any Number"
         },
-        "HVACTemplate-Always 24": {
-            "data": [
-                {
-                    "field": "Through: 12/31"
-                },
-                {
-                    "field": "For: AllDays"
-                },
-                {
-                    "field": "Until: 24:00"
-                },
-                {
-                    "field": 24
-                }
-            ],
-            "schedule_type_limits_name": "HVACTemplate Any Number"
-        },
         "HVACTemplate-Always 25": {
             "data": [
                 {
@@ -1042,7 +1026,7 @@
             ],
             "schedule_type_limits_name": "HVACTemplate Any Number"
         },
-        "HVACTemplate-Always 27": {
+        "HVACTemplate-Always 40": {
             "data": [
                 {
                     "field": "Through: 12/31"
@@ -1054,7 +1038,7 @@
                     "field": "Until: 24:00"
                 },
                 {
-                    "field": 27
+                    "field": 40
                 }
             ],
             "schedule_type_limits_name": "HVACTemplate Any Number"
@@ -1197,11 +1181,11 @@
     },
     "ThermostatSetpoint:DualSetpoint": {
         "ThermostatBedroom Dual SP Control": {
-            "cooling_setpoint_temperature_schedule_name": "HVACTemplate-Always 27",
+            "cooling_setpoint_temperature_schedule_name": "HVACTemplate-Always 40",
             "heating_setpoint_temperature_schedule_name": "HVACTemplate-Always 25"
         },
         "ThermostatLivingRoom Dual SP Control": {
-            "cooling_setpoint_temperature_schedule_name": "HVACTemplate-Always 24",
+            "cooling_setpoint_temperature_schedule_name": "HVACTemplate-Always 40",
             "heating_setpoint_temperature_schedule_name": "HVACTemplate-Always 21"
         }
     },
