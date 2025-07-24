@@ -13,6 +13,7 @@ from sinergym.utils.wrappers import (
     NormalizeAction,
     NormalizeObservation,
 )
+from controller import MyRuleBasedController
 
 
 # This code is to force a re-registration of sinergym environments
@@ -381,46 +382,332 @@ def display_results():
         logger.error(traceback.format_exc())
 
 
-env = gym.make("Eplus-2room-mild-continuous-v1")
-# env = NormalizeAction(env)
-env = NormalizeObservation(env)
-env = LoggerWrapper(env)
-env = CSVLogger(env)
+def run_agent_episode(env, agent_type, agent):
+    """
+    Run a complete episode with a given agent.
 
+    Args:
+        env: The environment to run in
+        agent_type: String identifier for the agent type ('random' or 'rbc')
+        agent: Agent object with an act() method
 
-# Execute episodes
-for i in range(1):
-
-    # Reset the environment to start a new episode
+    Returns:
+        dict: Results containing rewards, observations, actions, and metrics
+    """
     obs, info = env.reset()
 
+    total_reward = 0
     rewards = []
-    truncated = terminated = False
-    current_month = 0
+    observations = []
+    actions = []
 
-    while not (terminated or truncated):
+    done = False
+    truncated = False
+    step_count = 0
 
-        # Random action selection
-        # a = env.action_space.sample()
-        a = np.array([27.0, 27.0], dtype=np.float32)
+    try:
+        while not (done or truncated):
+            if agent_type == 'random':
+                a = env.action_space.sample()
+            else:
+                a = agent.act(obs)
 
-        # Perform action and receive env information
-        obs, reward, terminated, truncated, info = env.step(a)
+            obs, reward, done, truncated, info = env.step(a)
 
-        # print(f"Action: {a}, Reward: {reward}, Obs: {obs}")
+            rewards.append(reward)
+            observations.append(obs.copy())
+            actions.append(a.copy() if hasattr(a, 'copy') else a)
+            total_reward += reward
+            step_count += 1
 
-        rewards.append(reward)
+    except Exception as e:
+        print(f"Error during {agent_type} agent execution: {e}")
+        raise e
 
-        # Display results every simulated month
-        # if info['month'] != current_month:
-        #     current_month = info['month']
-        #     logger.info('Reward: {}'.format(sum(rewards)))
-        #     logger.info('Info: {}'.format(info))
+    mean_reward = total_reward / step_count if step_count > 0 else 0
 
-    logger.info('Episode {} - Mean reward: {} - Cumulative Reward: {}'.format(i,
-                np.mean(rewards), sum(rewards)))
+    return {
+        'rewards': rewards,
+        'observations': observations,
+        'actions': actions,
+        'cumulative_reward': total_reward,
+        'total_reward': total_reward,
+        'mean_reward': mean_reward,
+        'total_steps': step_count,
+        'steps': step_count
+    }
 
-env.close()
 
-# Display results after simulation
+def compare_agents():
+    """Compare Random Agent vs Rule-Based Controller performance."""
+
+    logger.info("\n" + "=" * 60)
+    logger.info("COMPARING RANDOM AGENT vs RULE-BASED CONTROLLER")
+    logger.info("=" * 60)
+
+    results = {}
+    agent_dirs = {}  # Track directories for each agent
+
+    # Run Random Agent
+    logger.info("\n--- Running Random Agent ---")
+    env = gym.make("Eplus-2room-mild-continuous-v1")
+    env = NormalizeObservation(env)
+    env = LoggerWrapper(env)
+    env = CSVLogger(env)
+
+    # Get the current working directory before running
+    before_dirs = set(os.listdir('.'))
+
+    random_results = run_agent_episode(env, 'random', None)
+    results['random'] = random_results
+
+    # Find the new directory created for random agent
+    after_dirs = set(os.listdir('.'))
+    new_dirs = after_dirs - before_dirs
+    random_dir = next((d for d in new_dirs if d.startswith(
+        'Eplus-2room-mild-continuous-v1-res')), None)
+    agent_dirs['random'] = random_dir
+
+    logger.info(
+        f"Random Agent - Mean Reward: {random_results['mean_reward']:.4f}")
+    logger.info(
+        f"Random Agent - Cumulative Reward: {random_results['cumulative_reward']:.2f}")
+    logger.info(f"Random Agent - Total Steps: {random_results['total_steps']}")
+
+    env.close()
+
+    # Run Rule-Based Controller
+    logger.info("\n--- Running Rule-Based Controller ---")
+    # RBC needs raw observations, not normalized ones
+    env = gym.make("Eplus-2room-mild-continuous-v1")
+    env = LoggerWrapper(env)
+    env = CSVLogger(env)
+
+    # Create RBC agent (no need to pass env)
+    # temp_env = gym.make("Eplus-2room-mild-continuous-v1")
+    rbc_agent = MyRuleBasedController(env)
+    # temp_env.close()
+
+    # Get directories before RBC run
+    before_dirs = set(os.listdir('.'))
+
+    rbc_results = run_agent_episode(env, 'rbc', rbc_agent)
+    results['rbc'] = rbc_results
+
+    # Find the new directory created for RBC agent
+    after_dirs = set(os.listdir('.'))
+    new_dirs = after_dirs - before_dirs
+    rbc_dir = next((d for d in new_dirs if d.startswith(
+        'Eplus-2room-mild-continuous-v1-res')), None)
+    agent_dirs['rbc'] = rbc_dir
+
+    logger.info(f"RBC Agent - Mean Reward: {rbc_results['mean_reward']:.4f}")
+    logger.info(
+        f"RBC Agent - Cumulative Reward: {rbc_results['cumulative_reward']:.2f}")
+    logger.info(f"RBC Agent - Total Steps: {rbc_results['total_steps']}")
+
+    env.close()
+
+    # Performance Comparison
+    logger.info("\n" + "=" * 60)
+    logger.info("PERFORMANCE COMPARISON")
+    logger.info("=" * 60)
+
+    improvement_mean = ((rbc_results['mean_reward'] -
+                         random_results['mean_reward']) /
+                        abs(random_results['mean_reward']) *
+                        100)
+    improvement_cumulative = (
+        (rbc_results['cumulative_reward'] - random_results['cumulative_reward']) / abs(
+            random_results['cumulative_reward']) * 100)
+
+    logger.info(f"Mean Reward Improvement: {improvement_mean:+.2f}%")
+    logger.info(
+        f"Cumulative Reward Improvement: {
+            improvement_cumulative:+.2f}%")
+
+    # Determine winner
+    if rbc_results['cumulative_reward'] > random_results['cumulative_reward']:
+        winner = "Rule-Based Controller"
+        winner_advantage = rbc_results['cumulative_reward'] - \
+            random_results['cumulative_reward']
+    else:
+        winner = "Random Agent"
+        winner_advantage = random_results['cumulative_reward'] - \
+            rbc_results['cumulative_reward']
+
+    logger.info(
+        f"Winner: {winner} (advantage: {
+            winner_advantage:+.2f} total reward)")
+
+    # Action Analysis
+    logger.info(f"\n--- Action Analysis ---")
+    random_actions = np.array(random_results['actions'])
+    rbc_actions = np.array(rbc_results['actions'])
+
+    logger.info(
+        f"Random Agent - LR Action Range: [{random_actions[:, 0].min():.2f}, {random_actions[:, 0].max():.2f}]")
+    logger.info(
+        f"Random Agent - BR Action Range: [{random_actions[:, 1].min():.2f}, {random_actions[:, 1].max():.2f}]")
+    logger.info(
+        f"Random Agent - Action Std: LR={random_actions[:, 0].std():.2f}, BR={random_actions[:, 1].std():.2f}")
+
+    logger.info(
+        f"RBC Agent - LR Action Range: [{rbc_actions[:, 0].min():.2f}, {rbc_actions[:, 0].max():.2f}]")
+    logger.info(
+        f"RBC Agent - BR Action Range: [{rbc_actions[:, 1].min():.2f}, {rbc_actions[:, 1].max():.2f}]")
+    logger.info(
+        f"RBC Agent - Action Std: LR={rbc_actions[:, 0].std():.2f}, BR={rbc_actions[:, 1].std():.2f}")
+
+    return results, agent_dirs
+
+
+def create_comparison_plot(results):
+    """Create agent comparison plots and individual monitoring plots."""
+    """Create visualization comparing both agents."""
+
+    plt.figure(figsize=(16, 12))
+
+    # Extract data
+    random_rewards = results['random']['rewards']
+    rbc_rewards = results['rbc']['rewards']
+
+    # Ensure same length for comparison
+    min_length = min(len(random_rewards), len(rbc_rewards))
+    random_rewards = random_rewards[:min_length]
+    rbc_rewards = rbc_rewards[:min_length]
+    timesteps = range(min_length)
+
+    # Plot 1: Reward Comparison
+    plt.subplot(2, 3, 1)
+    plt.plot(
+        timesteps,
+        random_rewards,
+        'r-',
+        alpha=0.7,
+        linewidth=0.8,
+        label='Random Agent')
+    plt.plot(
+        timesteps,
+        rbc_rewards,
+        'b-',
+        alpha=0.7,
+        linewidth=0.8,
+        label='RBC Agent')
+    plt.xlabel('Timestep')
+    plt.ylabel('Reward')
+    plt.title('Instantaneous Rewards Comparison')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    # Plot 2: Cumulative Rewards
+    plt.subplot(2, 3, 2)
+    random_cumulative = np.cumsum(random_rewards)
+    rbc_cumulative = np.cumsum(rbc_rewards)
+    plt.plot(
+        timesteps,
+        random_cumulative,
+        'r-',
+        linewidth=2,
+        label='Random Agent')
+    plt.plot(timesteps, rbc_cumulative, 'b-', linewidth=2, label='RBC Agent')
+    plt.xlabel('Timestep')
+    plt.ylabel('Cumulative Reward')
+    plt.title('Cumulative Rewards Comparison')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    # Plot 3: Moving Average Rewards
+    plt.subplot(2, 3, 3)
+    window_size = min(100, len(random_rewards) // 10)
+    if window_size > 1:
+        random_ma = pd.Series(random_rewards).rolling(
+            window=window_size, center=True).mean()
+        rbc_ma = pd.Series(rbc_rewards).rolling(
+            window=window_size, center=True).mean()
+        plt.plot(timesteps, random_ma, 'r-', linewidth=2,
+                 label=f'Random Agent (MA-{window_size})')
+        plt.plot(timesteps, rbc_ma, 'b-', linewidth=2,
+                 label=f'RBC Agent (MA-{window_size})')
+    plt.xlabel('Timestep')
+    plt.ylabel('Moving Average Reward')
+    plt.title('Moving Average Rewards')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    # Plot 4: Action Comparison - Living Room
+    plt.subplot(2, 3, 4)
+    random_actions = np.array(results['random']['actions'])
+    rbc_actions = np.array(results['rbc']['actions'])
+    plt.plot(timesteps,
+             random_actions[:min_length,
+                            0],
+             'r-',
+             alpha=0.7,
+             label='Random Agent')
+    plt.plot(timesteps, rbc_actions[:min_length, 0],
+             'b-', alpha=0.7, label='RBC Agent')
+    plt.xlabel('Timestep')
+    plt.ylabel('Heating Setpoint')
+    plt.title('Living Room Actions Comparison')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    # Plot 5: Action Comparison - Bedroom
+    plt.subplot(2, 3, 5)
+    plt.plot(timesteps,
+             random_actions[:min_length,
+                            1],
+             'r-',
+             alpha=0.7,
+             label='Random Agent')
+    plt.plot(timesteps, rbc_actions[:min_length, 1],
+             'b-', alpha=0.7, label='RBC Agent')
+    plt.xlabel('Timestep')
+    plt.ylabel('Heating Setpoint')
+    plt.title('Bedroom Actions Comparison')
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    # Plot 6: Performance Statistics
+    plt.subplot(2, 3, 6)
+    agents = ['Random', 'RBC']
+    mean_rewards = [
+        results['random']['mean_reward'],
+        results['rbc']['mean_reward']]
+    cumulative_rewards = [
+        results['random']['cumulative_reward'],
+        results['rbc']['cumulative_reward']]
+
+    x = np.arange(len(agents))
+    width = 0.35
+
+    plt.bar(x - width / 2, mean_rewards, width, label='Mean Reward', alpha=0.8)
+    plt.bar(x + width / 2,
+            [r / 1000 for r in cumulative_rewards],
+            width,
+            label='Cumulative Reward (÷1000)',
+            alpha=0.8)
+
+    plt.xlabel('Agent Type')
+    plt.ylabel('Performance')
+    plt.title('Performance Summary')
+    plt.xticks(x, agents)
+    plt.legend()
+    plt.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    plt.savefig('agents_comparison.png', dpi=300, bbox_inches='tight')
+    plt.show()
+
+    logger.info("Agent comparison plots saved as 'agents_comparison.png'")
+
+
+# Run the comparison
+comparison_results, agent_directories = compare_agents()
+
+# Create comparison visualization
+create_comparison_plot(comparison_results)
+
+# Still display the latest results from monitoring
 display_results()

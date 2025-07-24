@@ -83,7 +83,7 @@ action_space: gym.spaces.Box( low=np.array([10.0, 10.0], dtype=np.float32), high
 # ---------------------------------------------------------------------------- #
 #                                REWARD FUNCTION                               #
 # ---------------------------------------------------------------------------- #
-reward: sinergym.utils.rewards:LinearReward
+reward: sinergym.utils.rewards:ExpReward
 reward_kwargs:
   temperature_variables:
     - air_temp_lr
